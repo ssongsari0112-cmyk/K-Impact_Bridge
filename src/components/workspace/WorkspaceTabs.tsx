@@ -1,26 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { WORKSPACE_TABS } from "@/lib/constants";
+import { useSearchParams } from "next/navigation";
+import { WORKSPACE_TABS, type WorkspaceTabSlug } from "@/lib/constants";
+import { cn } from "@/lib/utils";
 
 export function WorkspaceTabs({ projectId }: { projectId: string }) {
-  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const activeTab = (searchParams.get("tab") as WorkspaceTabSlug) ?? "overview";
 
   return (
-    <nav className="flex flex-wrap gap-1 border-b border-black/10 pb-3 dark:border-white/10">
+    <nav className="flex gap-2 overflow-x-auto border-b-2 border-line">
       {WORKSPACE_TABS.map((tab) => {
-        const href = `/projects/${projectId}/${tab.slug}`;
-        const isActive = pathname === href;
+        const isActive = tab.slug === activeTab;
         return (
           <Link
             key={tab.slug}
-            href={href}
-            className={`rounded-full px-3 py-1.5 text-sm ${
+            href={`/projects/${projectId}?tab=${tab.slug}`}
+            className={cn(
+              "-mb-0.5 shrink-0 whitespace-nowrap border-b-2 px-4 py-2.5 text-sm font-semibold transition-colors",
               isActive
-                ? "bg-foreground text-background"
-                : "text-foreground/60 hover:bg-black/5 dark:hover:bg-white/10"
-            }`}
+                ? "border-bridge text-bridge"
+                : "border-transparent text-ink-soft hover:text-bridge"
+            )}
           >
             {tab.label}
           </Link>

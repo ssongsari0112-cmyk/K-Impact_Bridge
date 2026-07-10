@@ -9,14 +9,18 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.5.1",
     "clsx": "^2.1.1",
+    "docx": "^9.7.1",
     "lucide-react": "^1.23.0",
     "next": "16.2.10",
+    "pptxgenjs": "^4.0.1",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-simple-maps": "^3.0.0",
     "tailwind-merge": "^3.6.0",
-    "world-atlas": "^2.0.2"
+    "world-atlas": "^2.0.2",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

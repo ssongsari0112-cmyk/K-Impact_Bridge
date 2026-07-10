@@ -1,0 +1,13 @@
+{
+  "name": "AquaSense AI",
+  "oneLiner": "AI 기반 수질 모니터링 솔루션으로 개발도상국의 식수 안전성을 개선하는 스타트업",
+  "technologies": ["AI 수질 이상 탐지", "IoT 수질 센서", "실시간 모니터링 대시보드"],
+  "sdgs": ["SDG 6", "SDG 9", "SDG 11"],
+  "useCases": [
+    "농촌 지역 식수원 실시간 오염 감지",
+    "지자체 상수도 인프라 예방 정비",
+    "재해 이후 긴급 식수 안전성 점검"
+  ],
+  "regionsOfInterest": ["동남아시아", "동아프리카"],
+  "confidence": 0.86
+}

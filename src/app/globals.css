@@ -1,31 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #0b1120;
-  --accent: #4338ca;
-  --accent-foreground: #ffffff;
-  --accent-soft: #eef2ff;
+  /* Color — Brand */
+  --kib-harbor: #123a66; /* Deep Harbor · 제목, 강조 텍스트 */
+  --kib-bridge: #3794ff; /* Bridge Blue · 주요 액션, 링크 (VS Code 블루) */
+  --kib-bridge-soft: #eaf3ff; /* Sky Wash · 은은한 배경, hover */
+  --kib-amber: #e8a33d; /* Opportunity Amber · 핵심 CTA */
+  --kib-amber-soft: #fbf1df;
+  /* Color — Neutral */
+  --kib-ink: #16242f; /* 본문 텍스트 */
+  --kib-ink-soft: #5b6b78; /* 보조 텍스트 */
+  --kib-mist: #f5f7f9; /* 페이지 보조 배경 */
+  --kib-line: #e1e8ee; /* 경계선 */
+  --kib-white: #ffffff;
+  /* Color — Semantic */
+  --kib-green: #2e8b6e; /* 신뢰도 높음 / 성공 */
+  --kib-green-soft: #e7f4ef;
+  --kib-red: #c4554d; /* 리스크 / 오류 */
+  --kib-red-soft: #faeceb;
+  --kib-yellow-soft: #fdf6e3;
+
+  /* Type */
+  --font-kr: "Pretendard Variable", Pretendard, var(--font-sora, "Segoe UI"), sans-serif;
+  --font-num: var(--font-sora), var(--font-kr);
+  --font-mono: var(--font-plex-mono), "IBM Plex Mono", monospace;
+
+  /* Shape */
+  --r-card: 14px;
+  --r-input: 10px;
+  --r-chip: 999px;
+
+  /* Elevation */
+  --sh-1: 0 1px 2px rgba(12, 59, 93, 0.06);
+  --sh-2: 0 4px 16px rgba(12, 59, 93, 0.09);
+  --sh-3: 0 12px 32px rgba(12, 59, 93, 0.13);
+
+  --background: var(--kib-white);
+  --foreground: var(--kib-ink);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent-soft: var(--accent-soft);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #05070d;
-    --foreground: #edf0f7;
-    --accent: #818cf8;
-    --accent-foreground: #05070d;
-    --accent-soft: #171d3380;
-  }
+  --color-harbor: var(--kib-harbor);
+  --color-bridge: var(--kib-bridge);
+  --color-bridge-soft: var(--kib-bridge-soft);
+  --color-amber: var(--kib-amber);
+  --color-amber-soft: var(--kib-amber-soft);
+
+  --color-ink: var(--kib-ink);
+  --color-ink-soft: var(--kib-ink-soft);
+  --color-mist: var(--kib-mist);
+  --color-line: var(--kib-line);
+
+  --color-green: var(--kib-green);
+  --color-green-soft: var(--kib-green-soft);
+  --color-red: var(--kib-red);
+  --color-red-soft: var(--kib-red-soft);
+  --color-yellow-soft: var(--kib-yellow-soft);
+
+  --font-sans: var(--font-kr);
+  --font-display: var(--font-num);
+  --font-mono: var(--font-mono);
+
+  --radius-card: var(--r-card);
+  --radius-input: var(--r-input);
+  --radius-chip: var(--r-chip);
+
+  --shadow-kib-1: var(--sh-1);
+  --shadow-kib-2: var(--sh-2);
+  --shadow-kib-3: var(--sh-3);
 }
 
 html {
@@ -35,9 +80,17 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-kr);
   word-break: keep-all;
   overflow-wrap: break-word;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 .bg-grid {

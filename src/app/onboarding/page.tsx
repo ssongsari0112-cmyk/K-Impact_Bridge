@@ -1,58 +1,82 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { Suspense, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AppShell } from "@/components/layout/AppShell";
+import { StepProgress } from "@/components/kib/StepProgress";
 import { ONBOARDING_GOALS } from "@/lib/constants";
+import { useProjectStore } from "@/lib/store/useProjectStore";
+import type { Mode } from "@/lib/types";
+import profileMock from "@/lib/ai/mocks/profile.aquasense.json";
 
-export default function OnboardingPage() {
-  const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+const STEP_LABELS = ["목적", "프로필", "국가", "파트너", "리포트"];
 
-  function toggleGoal(id: string) {
-    setSelectedGoals((prev) =>
-      prev.includes(id) ? prev.filter((goalId) => goalId !== id) : [...prev, id]
-    );
+function OnboardingContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isDemo = searchParams.get("demo") === "true";
+  const setDraftMode = useProjectStore((state) => state.setDraftMode);
+  const setDraftProfile = useProjectStore((state) => state.setDraftProfile);
+
+  useEffect(() => {
+    if (!isDemo) return;
+    setDraftMode("new_opportunity");
+    setDraftProfile(profileMock);
+    router.replace("/discover");
+  }, [isDemo, router, setDraftMode, setDraftProfile]);
+
+  function selectGoal(mode: Mode) {
+    setDraftMode(mode);
+    router.push("/profile/new");
   }
 
-  const hasSelection = selectedGoals.length > 0;
+  if (isDemo) {
+    return (
+      <AppShell>
+        <div className="mx-auto max-w-xl text-center text-sm text-ink-soft">
+          AquaSense AI 데모 시나리오를 불러오는 중…
+        </div>
+      </AppShell>
+    );
+  }
 
   return (
     <AppShell>
       <div className="mx-auto max-w-xl text-center">
-        <h1 className="text-2xl font-semibold">무엇을 하고 싶으신가요?</h1>
-        <p className="mt-2 text-sm text-foreground/60">해당하는 항목을 모두 선택해주세요.</p>
+        <StepProgress
+          className="mx-auto justify-center"
+          items={STEP_LABELS.map((label, index) => ({
+            label,
+            state: index === 0 ? "now" : "pending",
+          }))}
+        />
+        <h1 className="mt-8 text-2xl font-bold tracking-tight text-harbor">
+          무엇을 하고 싶으신가요?
+        </h1>
+        <p className="mt-2 text-sm text-ink-soft">
+          해당하는 항목을 선택하면 바로 다음 단계로 이동합니다.
+        </p>
         <div className="mt-8 flex flex-col gap-3 text-left">
-          {ONBOARDING_GOALS.map((goal) => {
-            const isSelected = selectedGoals.includes(goal.id);
-            return (
-              <button
-                key={goal.id}
-                type="button"
-                onClick={() => toggleGoal(goal.id)}
-                aria-pressed={isSelected}
-                className={`rounded-xl border px-4 py-3 text-sm transition-colors ${
-                  isSelected
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-black/15 hover:bg-black/5 dark:border-white/20 dark:hover:bg-white/10"
-                }`}
-              >
-                {goal.label}
-              </button>
-            );
-          })}
+          {ONBOARDING_GOALS.map((goal) => (
+            <button
+              key={goal.id}
+              type="button"
+              onClick={() => selectGoal(goal.id as Mode)}
+              className="rounded-card border border-line bg-white px-4 py-3.5 text-sm font-medium text-ink transition-colors hover:border-bridge hover:bg-bridge-soft"
+            >
+              {goal.label}
+            </button>
+          ))}
         </div>
-        <Link
-          href="/profile-builder"
-          aria-disabled={!hasSelection}
-          className={`mt-8 inline-block rounded-full px-6 py-3 text-sm font-medium ${
-            hasSelection
-              ? "bg-foreground text-background hover:opacity-90"
-              : "pointer-events-none bg-black/10 text-foreground/40 dark:bg-white/10"
-          }`}
-        >
-          다음
-        </Link>
       </div>
     </AppShell>
+  );
+}
+
+export default function OnboardingPage() {
+  return (
+    <Suspense fallback={null}>
+      <OnboardingContent />
+    </Suspense>
   );
 }

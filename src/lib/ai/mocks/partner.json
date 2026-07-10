@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Water Impact NGO",
+    "matchScore": 91,
+    "synergy": [
+      "캄보디아 3개 주에서 식수 개선 사업 7년 수행",
+      "현지 정부·지역사회 네트워크 보유",
+      "IoT 센서 도입 시 모니터링 역량 즉시 확장 가능"
+    ],
+    "risk": "기술 기반 사업 수행 경험은 제한적",
+    "recommendation": "기업이 기술 교육 프로그램을 함께 제공하는 조건으로 협력 가능",
+    "isDemo": true,
+    "citations": [
+      {
+        "id": "cite_partner_1",
+        "sourceName": "Demo NGO DB",
+        "title": "Water Impact NGO 사업 이력 (샘플)",
+        "url": "https://data.koica.go.kr",
+        "isDemo": true,
+        "usedIn": ["partner", "strategy"]
+      }
+    ]
+  },
+  {
+    "name": "Clean Mekong Alliance",
+    "matchScore": 78,
+    "synergy": ["메콩강 유역 4개국 수질 관리 네트워크", "정부 산하 연구기관과 협력 채널 보유"],
+    "risk": "캄보디아 단일 국가 집중도는 상대적으로 낮음",
+    "recommendation": "1차 파일럿은 캄보디아 지부와 우선 진행 권장",
+    "isDemo": true,
+    "citations": [
+      {
+        "id": "cite_partner_2",
+        "sourceName": "Demo NGO DB",
+        "title": "Clean Mekong Alliance 소개 (샘플)",
+        "url": "https://data.koica.go.kr",
+        "isDemo": true,
+        "usedIn": ["partner"]
+      }
+    ]
+  }
+]

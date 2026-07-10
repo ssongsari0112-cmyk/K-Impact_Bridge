@@ -1,0 +1,112 @@
+[
+  {
+    "country": "캄보디아",
+    "countryCode": "KH",
+    "opportunityScore": 88,
+    "reasons": [
+      "농촌 지역 식수 안전성 개선 수요가 매우 높음",
+      "KOICA 기존 물·보건 분야 사업과 연계 가능",
+      "한국과의 개발협력 기반이 이미 존재"
+    ],
+    "sdgs": ["SDG 6", "SDG 9"],
+    "confidence": "high",
+    "citations": [
+      {
+        "id": "cite_kh_1",
+        "sourceName": "KOICA Open Data",
+        "title": "ODA Project Dataset · Cambodia Water & Sanitation",
+        "url": "https://data.koica.go.kr",
+        "isDemo": false,
+        "usedIn": ["country", "strategy"]
+      },
+      {
+        "id": "cite_kh_2",
+        "sourceName": "ODA Korea",
+        "title": "대한민국 ODA 통합 정보포털 · 캄보디아 협력 현황",
+        "url": "https://www.odakorea.go.kr",
+        "isDemo": false,
+        "usedIn": ["country"]
+      }
+    ]
+  },
+  {
+    "country": "베트남",
+    "countryCode": "VN",
+    "opportunityScore": 76,
+    "reasons": [
+      "디지털 헬스케어·에듀테크 수요 확대 중",
+      "한국 기업 진출 사례 다수, 현지 네트워크 풍부",
+      "IT 인프라 성숙도가 동남아 내 상위권"
+    ],
+    "sdgs": ["SDG 3", "SDG 4", "SDG 9"],
+    "confidence": "high",
+    "citations": [
+      {
+        "id": "cite_vn_1",
+        "sourceName": "KOICA Open Data",
+        "title": "ODA Project Dataset · Vietnam Digital Health",
+        "url": "https://data.koica.go.kr",
+        "isDemo": false,
+        "usedIn": ["country"]
+      }
+    ]
+  },
+  {
+    "country": "케냐",
+    "countryCode": "KE",
+    "opportunityScore": 71,
+    "reasons": [
+      "스마트팜·태양광 관개 기술 수요 증가",
+      "동아프리카 농업 기술 협력 거점으로 성장 중",
+      "현지 NGO 네트워크와의 연계 가능성"
+    ],
+    "sdgs": ["SDG 2", "SDG 7", "SDG 9"],
+    "confidence": "mid",
+    "citations": [
+      {
+        "id": "cite_ke_1",
+        "sourceName": "MOFA Insight",
+        "title": "외교부 아프리카 협력 브리핑 · 2025",
+        "url": "https://www.mofa.go.kr",
+        "isDemo": true,
+        "usedIn": ["country"]
+      }
+    ]
+  },
+  {
+    "country": "르완다",
+    "countryCode": "RW",
+    "opportunityScore": 65,
+    "reasons": ["헬스케어 AI 진단 수요", "정부 주도 디지털 전환 정책과 정합성 높음"],
+    "sdgs": ["SDG 3", "SDG 9"],
+    "confidence": "mid",
+    "citations": [
+      {
+        "id": "cite_rw_1",
+        "sourceName": "MOFA Insight",
+        "title": "외교부 아프리카 협력 브리핑 · 2025",
+        "url": "https://www.mofa.go.kr",
+        "isDemo": true,
+        "usedIn": ["country"]
+      }
+    ]
+  },
+  {
+    "country": "탄자니아",
+    "countryCode": "TZ",
+    "opportunityScore": 58,
+    "reasons": ["동아프리카 농업·수자원 인프라 협력 초기 단계", "KOICA 신규 사업 발굴 지역으로 언급됨"],
+    "sdgs": ["SDG 6", "SDG 2"],
+    "confidence": "low",
+    "citations": [
+      {
+        "id": "cite_tz_1",
+        "sourceName": "Demo NGO DB",
+        "title": "동아프리카 수자원 협력 기초 조사 (샘플)",
+        "url": "https://data.koica.go.kr",
+        "isDemo": true,
+        "usedIn": ["country"]
+      }
+    ]
+  }
+]
