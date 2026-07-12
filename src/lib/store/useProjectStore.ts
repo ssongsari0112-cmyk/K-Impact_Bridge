@@ -20,6 +20,7 @@ function mergeCitationList(existing: Citation[], incoming: Citation[]): Citation
 interface ProjectStoreState {
   hasHydrated: boolean;
   isAuthenticated: boolean;
+  userEmail: string | null;
   projects: Record<string, Project>;
   currentProjectId: string | null;
 
@@ -29,7 +30,7 @@ interface ProjectStoreState {
   draftCitations: Citation[];
 
   setHasHydrated: (value: boolean) => void;
-  login: () => void;
+  login: (email: string) => void;
   logout: () => void;
 
   setDraftMode: (mode: Mode) => void;
@@ -47,6 +48,7 @@ export const useProjectStore = create<ProjectStoreState>()(
     (set, get) => ({
       hasHydrated: false,
       isAuthenticated: false,
+      userEmail: null,
       projects: {},
       currentProjectId: null,
 
@@ -56,8 +58,8 @@ export const useProjectStore = create<ProjectStoreState>()(
       draftCitations: [],
 
       setHasHydrated: (value) => set({ hasHydrated: value }),
-      login: () => set({ isAuthenticated: true }),
-      logout: () => set({ isAuthenticated: false }),
+      login: (email) => set({ isAuthenticated: true, userEmail: email }),
+      logout: () => set({ isAuthenticated: false, userEmail: null }),
 
       setDraftMode: (mode) => set({ draftMode: mode }),
       setDraftProfile: (profile) => set({ draftProfile: profile }),

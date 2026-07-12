@@ -1,8 +1,22 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import { Waypoints } from "lucide-react";
+import { useProjectStore } from "@/lib/store/useProjectStore";
 
 export function AppShell({ children }: { children: ReactNode }) {
+  const router = useRouter();
+  const isAuthenticated = useProjectStore((state) => state.isAuthenticated);
+  const userEmail = useProjectStore((state) => state.userEmail);
+  const logout = useProjectStore((state) => state.logout);
+
+  function handleLogout() {
+    logout();
+    router.push("/login");
+  }
+
   return (
     <div className="flex min-h-[calc(100vh-1px)] flex-1 flex-col bg-mist">
       <header className="border-b-2 border-bridge/10 bg-white">
@@ -20,6 +34,27 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Link href="/profile/new" className="transition-colors hover:text-bridge">
               Profile Builder
             </Link>
+            {isAuthenticated ? (
+              <div className="flex items-center gap-3 border-l border-line pl-5">
+                <span className="max-w-[160px] truncate text-ink-soft" title={userEmail ?? undefined}>
+                  {userEmail}
+                </span>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="font-semibold text-ink-soft transition-colors hover:text-bridge"
+                >
+                  로그아웃
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/login"
+                className="border-l border-line pl-5 font-semibold text-bridge transition-colors hover:text-harbor"
+              >
+                로그인
+              </Link>
+            )}
           </nav>
         </div>
       </header>

@@ -18,9 +18,10 @@ const STATUS_LABEL: Record<string, string> = {
 
 export default function DashboardPage() {
   const hasHydrated = useProjectStore((state) => state.hasHydrated);
-  const projects = useProjectStore((state) => Object.values(state.projects));
+  const projectsRecord = useProjectStore((state) => state.projects);
   const draftProfile = useProjectStore((state) => state.draftProfile);
 
+  const projects = Object.values(projectsRecord);
   const profile = projects[0]?.profile ?? draftProfile;
 
   return (
