@@ -7,7 +7,7 @@ export function Textarea({
   ...textareaProps
 }: { label: string; hint?: string } & TextareaHTMLAttributes<HTMLTextAreaElement>) {
   return (
-    <label className="flex max-w-[520px] flex-col gap-[7px] text-sm">
+    <label className="flex w-full flex-col gap-[7px] text-sm">
       <span className="font-semibold text-ink">
         {label}
         {required && <span className="ml-0.5 text-red">*</span>}

@@ -28,6 +28,7 @@ interface ProjectStoreState {
   currentProjectId: string | null;
 
   draftMode: Mode | null;
+  draftGoals: string[];
   draftProfile: OrgProfile | null;
   draftCountry: CountryOpportunity | null;
   draftCitations: Citation[];
@@ -36,6 +37,8 @@ interface ProjectStoreState {
   login: (email: string, orgType?: OrgType) => void;
   logout: () => void;
 
+  // 온보딩 1단계: 조직 유형 + 목표 저장
+  saveOnboarding: (orgType: OrgType, goals: string[]) => void;
   setDraftMode: (mode: Mode) => void;
   setDraftProfile: (profile: OrgProfile) => void;
   setDraftCountry: (country: CountryOpportunity) => void;
@@ -57,6 +60,7 @@ export const useProjectStore = create<ProjectStoreState>()(
       currentProjectId: null,
 
       draftMode: null,
+      draftGoals: [],
       draftProfile: null,
       draftCountry: null,
       draftCitations: [],
@@ -70,6 +74,13 @@ export const useProjectStore = create<ProjectStoreState>()(
         })),
       logout: () => set({ isAuthenticated: false, userEmail: null, orgType: null }),
 
+      saveOnboarding: (orgType, goals) =>
+        set({
+          orgType,
+          draftGoals: goals,
+          // 다운스트림 플로우 호환용 대표 모드
+          draftMode: orgType === "company" ? "new_opportunity" : "find_partner",
+        }),
       setDraftMode: (mode) => set({ draftMode: mode }),
       setDraftProfile: (profile) => set({ draftProfile: profile }),
       setDraftCountry: (country) => set({ draftCountry: country }),
@@ -92,7 +103,13 @@ export const useProjectStore = create<ProjectStoreState>()(
         set({ draftCitations: mergeCitationList(get().draftCitations, citations) });
       },
       resetDraft: () =>
-        set({ draftMode: null, draftProfile: null, draftCountry: null, draftCitations: [] }),
+        set({
+          draftMode: null,
+          draftGoals: [],
+          draftProfile: null,
+          draftCountry: null,
+          draftCitations: [],
+        }),
 
       createProject: (partner) => {
         const { draftMode, draftProfile, draftCountry, draftCitations } = get();

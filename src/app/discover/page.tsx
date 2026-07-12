@@ -84,13 +84,14 @@ function DiscoverContent() {
           <BridgeLineLoading nodes={DISCOVER_BRIDGE_NODES} />
         </div>
       ) : (
-        <div className="mt-8 max-w-2xl">
+        <div className="mt-8 w-full max-w-3xl">
           {isDemoResult && <DemoBanner className="mb-5" />}
           <div className="flex flex-col gap-4">
-            {opportunities.slice(0, visibleCount).map((opportunity) => (
+            {opportunities.slice(0, visibleCount).map((opportunity, index) => (
               <CountryCard
                 key={opportunity.country}
                 opportunity={opportunity}
+                rank={index + 1}
                 onSelect={() => selectCountry(opportunity)}
               />
             ))}
