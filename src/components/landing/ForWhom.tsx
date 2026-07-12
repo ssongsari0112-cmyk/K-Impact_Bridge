@@ -28,9 +28,11 @@ export default function ForWhom() {
     <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={7}>FOR WHOM</SectionEyebrow>
+          <SectionEyebrow>FOR WHOM</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
-            처음이어도, 이미 하고 있어도
+            처음이어도
+            <br />
+            이미 하고 있어도
           </h2>
         </Reveal>
 

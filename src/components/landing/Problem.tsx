@@ -25,9 +25,11 @@ export default function Problem() {
     <section className="bg-mist px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={2}>PROBLEM</SectionEyebrow>
+          <SectionEyebrow>PROBLEM</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
-            좋은 기술을 가지고도, 왜 세계로 나가기 어려울까요?
+            좋은 기술을 가지고도
+            <br />
+            왜 세계로 나가기 어려울까요?
           </h2>
         </Reveal>
 
@@ -49,10 +51,6 @@ export default function Problem() {
             );
           })}
         </div>
-
-        <Reveal className="mt-6 text-center text-sm text-ink-soft">
-          NGO도 마찬가지입니다 — 새로운 기술 파트너를 찾기 어렵습니다
-        </Reveal>
       </div>
     </section>
   );

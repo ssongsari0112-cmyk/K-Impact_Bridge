@@ -31,7 +31,7 @@ export default function ComparisonTable() {
     <section className="bg-mist px-6 py-24">
       <div className="mx-auto max-w-5xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={6}>WHY DIFFERENT</SectionEyebrow>
+          <SectionEyebrow>WHY DIFFERENT</SectionEyebrow>
           <h2 className="mt-3 tracking-tight">
             <span className="block text-xl font-light text-ink-soft sm:text-2xl">
               복잡한 프롬프트 없이,

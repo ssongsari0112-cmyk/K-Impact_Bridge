@@ -1,6 +1,7 @@
 import { Upload, Search, FileDown } from "lucide-react";
 import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { Reveal } from "@/components/landing/Reveal";
+import { LinkButton } from "@/components/ui/Button";
 
 const STEPS = [
   {
@@ -28,7 +29,7 @@ export default function HowItWorks() {
     <section className="bg-mist px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={4}>HOW IT WORKS</SectionEyebrow>
+          <SectionEyebrow>HOW IT WORKS</SectionEyebrow>
           <h2 className="mt-3 tracking-tight">
             <span className="block text-xl font-light text-ink-soft sm:text-2xl">
               업로드 한 번이면,
@@ -63,6 +64,12 @@ export default function HowItWorks() {
             );
           })}
         </div>
+
+        <Reveal className="mt-10 flex justify-center">
+          <LinkButton href="/profile/new" variant="primary" size="lg">
+            바로 업로드하기
+          </LinkButton>
+        </Reveal>
       </div>
     </section>
   );

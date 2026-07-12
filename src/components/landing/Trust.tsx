@@ -8,7 +8,7 @@ export default function Trust() {
     <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={13}>TRUST</SectionEyebrow>
+          <SectionEyebrow>TRUST</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
             신뢰와 보안
           </h2>

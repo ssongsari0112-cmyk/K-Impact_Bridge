@@ -13,7 +13,7 @@ export default function OutputPreview() {
     <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-4xl text-center">
         <Reveal>
-          <SectionEyebrow n={11}>OUTPUT</SectionEyebrow>
+          <SectionEyebrow>OUTPUT</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
             손에 남는 것: 세 개의 문서
           </h2>

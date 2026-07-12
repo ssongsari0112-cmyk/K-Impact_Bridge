@@ -9,18 +9,14 @@ const SOURCES = [
   { name: "KF 국제교류 데이터", usage: "문화·교육 교류 파트너 발굴" },
 ];
 
-const CHIPS = [
-  { label: "KOICA Open Data", href: "https://data.koica.go.kr" },
-  { label: "ODA Korea", href: "https://www.odakorea.go.kr" },
-  { label: "MOFA Insight", href: "https://www.mofa.go.kr" },
-];
+const CHIPS = ["KOICA Open Data", "ODA Korea", "MOFA Insight"];
 
 export default function DataSources() {
   return (
     <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={9}>DATA</SectionEyebrow>
+          <SectionEyebrow>DATA</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
             대한민국 외교 데이터 위에서 작동합니다
           </h2>
@@ -41,8 +37,8 @@ export default function DataSources() {
 
         <Reveal className="mt-10 flex flex-col items-center gap-4 rounded-card border border-line bg-bridge-soft/40 p-6 sm:flex-row sm:justify-between">
           <div className="flex flex-wrap justify-center gap-2">
-            {CHIPS.map((chip) => (
-              <CitationChip key={chip.label} label={chip.label} href={chip.href} />
+            {CHIPS.map((label) => (
+              <CitationChip key={label} label={label} />
             ))}
           </div>
           <span className="shrink-0 -rotate-6 rounded-chip bg-white px-4 py-1.5 text-xs font-bold text-bridge shadow-kib-2">

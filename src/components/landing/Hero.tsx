@@ -29,7 +29,7 @@ export default function Hero() {
               size="lg"
               className="shadow-[0_8px_24px_rgba(232,163,61,0.35)] hover:scale-[1.03]"
             >
-              무료로 프로젝트 시작하기
+              프로젝트 시작하기
             </StartButton>
             <LinkButton href="/onboarding?demo=true" variant="secondary" size="lg">
               3분 데모 보기
