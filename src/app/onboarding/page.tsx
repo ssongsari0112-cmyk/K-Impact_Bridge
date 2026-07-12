@@ -15,15 +15,16 @@ function OnboardingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isDemo = searchParams.get("demo") === "true";
+  const hasHydrated = useProjectStore((state) => state.hasHydrated);
   const setDraftMode = useProjectStore((state) => state.setDraftMode);
   const setDraftProfile = useProjectStore((state) => state.setDraftProfile);
 
   useEffect(() => {
-    if (!isDemo) return;
+    if (!isDemo || !hasHydrated) return;
     setDraftMode("new_opportunity");
     setDraftProfile(profileMock);
     router.replace("/discover");
-  }, [isDemo, router, setDraftMode, setDraftProfile]);
+  }, [isDemo, hasHydrated, router, setDraftMode, setDraftProfile]);
 
   function selectGoal(mode: Mode) {
     setDraftMode(mode);

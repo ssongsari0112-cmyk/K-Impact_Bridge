@@ -1,8 +1,9 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { Waypoints } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({ children, wide = false }: { children: ReactNode; wide?: boolean }) {
   return (
     <div className="flex min-h-[calc(100vh-1px)] flex-1 flex-col bg-mist">
       <header className="border-b-2 border-bridge/10 bg-white">
@@ -23,7 +24,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           </nav>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">{children}</main>
+      <main
+        className={cn(
+          "mx-auto w-full flex-1 px-6 py-10 lg:px-10",
+          wide ? "max-w-[1680px]" : "max-w-6xl"
+        )}
+      >
+        {children}
+      </main>
     </div>
   );
 }

@@ -1,13 +1,15 @@
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
-import FeatureCards from "@/components/landing/FeatureCards";
+import SolutionGrid from "@/components/landing/SolutionGrid";
+import Technology from "@/components/landing/Technology";
 
 export default function FeaturesPage() {
   return (
     <div className="flex min-h-screen flex-col bg-white text-ink">
       <Header />
       <main className="flex-1">
-        <FeatureCards />
+        <SolutionGrid />
+        <Technology />
       </main>
       <Footer />
     </div>

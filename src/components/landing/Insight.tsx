@@ -47,15 +47,16 @@ export default function Insight() {
           <SectionEyebrow n={3}>INSIGHT</SectionEyebrow>
           <h2 className="mt-3 tracking-tight">
             <span className="block text-xl font-light text-ink-soft sm:text-2xl">
-              데이터는 이미 있습니다.
+              공공데이터는 이미 충분히 쌓여 있습니다.
             </span>
             <span className="mt-1 block text-3xl font-extrabold text-harbor sm:text-4xl">
-              없는 것은 <span className="text-bridge">&lsquo;연결&rsquo;</span>입니다.
+              부족했던 건 <span className="text-bridge">연결하는 과정</span>이었습니다.
             </span>
           </h2>
           <p className="mt-4 text-ink-soft">
-            외교부, KOICA, KF에는 방대한 개발협력 데이터가 있습니다. 문제는 그 데이터가
-            조회에서 멈춘다는 것 — K-Impact Bridge는 데이터를 실행 전략으로 바꿉니다.
+            외교부, KOICA, KF는 방대한 개발협력 데이터를 공개하고 있지만, 대부분 조회와
+            다운로드에서 끝납니다. K-Impact Bridge는 이 데이터를 국가 추천, 파트너 매칭,
+            전략 리포트로 이어지는 하나의 흐름으로 연결합니다.
           </p>
         </Reveal>
 
