@@ -45,9 +45,7 @@ function buildProfileFromManualInput(input: Record<string, unknown>): OrgProfile
     oneLiner: asText(input.summary),
     technologies: splitList(input.technologies),
     sdgs: [],
-    useCases: [asText(input.product), asText(input.problem), asText(input.collaborationFields)].filter(
-      Boolean
-    ),
+    useCases: [asText(input.problem), asText(input.collaborationFields)].filter(Boolean),
     regionsOfInterest: splitList(input.targetCountries),
     confidence: 0.75,
   };

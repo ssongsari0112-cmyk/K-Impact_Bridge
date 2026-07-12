@@ -9,7 +9,7 @@ export default function MapPage() {
       <main className="flex-1 bg-mist px-6 py-16">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-medium text-bridge">국가별 기회 지도</p>
+            <p className="text-sm font-medium text-bridge">국가별 사업 기회 지도</p>
             <h1 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
               한국의 기술이 필요한 국가를 지도에서 확인하세요
             </h1>

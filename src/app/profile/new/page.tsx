@@ -141,19 +141,24 @@ export default function ProfileBuilderPage() {
                 runProfileAnalysis(Object.fromEntries(formData.entries()));
               }}
             >
-              <Field label="기업명" name="name" placeholder="AquaSense AI" />
+              <Field label="기업명" name="name" required />
               <Textarea
                 label="한 줄 소개"
                 name="summary"
-                placeholder="AI 기반 수질 모니터링 솔루션을 통해 개발도상국의 식수 안전성을 개선하고자 합니다."
+                placeholder="예: AI 기반 수질 모니터링 솔루션을 통해 개발도상국의 식수 안전성을 개선하고자 합니다."
                 rows={2}
+                required
               />
-              <Field label="보유 기술" name="technologies" placeholder="AI, IoT, Water Monitoring" />
-              <Field label="대표 제품" name="product" placeholder="수질 이상 탐지 IoT 센서" />
-              <Field label="해결하고 싶은 문제" name="problem" placeholder="개발도상국 농촌 지역의 식수 안전성" />
-              <Field label="관심 국가" name="targetCountries" placeholder="캄보디아, 라오스" />
-              <Field label="희망 협력 분야" name="collaborationFields" placeholder="Water, Health" />
-              <Field label="해외 진출 경험" name="globalExperience" placeholder="없음 / 있음 (설명)" />
+              <Field
+                label="보유 기술"
+                name="technologies"
+                placeholder="예: AI, IoT, Water Monitoring"
+                required
+              />
+              <Field label="해결하고 싶은 문제" name="problem" placeholder="예: 개발도상국 농촌 지역의 식수 안전성" />
+              <Field label="관심 국가" name="targetCountries" placeholder="예: 캄보디아, 라오스" />
+              <Field label="희망 협력 분야" name="collaborationFields" placeholder="예: Water, Health" />
+              <Field label="해외 진출 경험" name="globalExperience" placeholder="예: 없음 / 있음 (설명)" />
               <Field label="참고 URL" name="referenceUrl" type="url" placeholder="https://" />
               <Button type="submit" className="mt-2 justify-self-start">
                 분석 시작

@@ -8,7 +8,7 @@ const GROUPS = [
   {
     icon: Building2,
     label: "기업 · 스타트업",
-    headline: "해외 진출과 ODA 참여, 첫 지도를 그려드립니다",
+    headlineLines: ["보유한 기술에 맞는", "국제개발협력 기회를 찾아드립니다."],
     tags: ["#스마트팜", "#에듀테크", "#헬스케어", "#환경기술"],
     href: "/onboarding?type=company",
     cta: "기업으로 시작하기",
@@ -16,7 +16,7 @@ const GROUPS = [
   {
     icon: Heart,
     label: "NGO · 수행기관",
-    headline: "우리 사업에 맞는 기술 파트너를 찾아드립니다",
+    headlineLines: ["사업에 가장 적합한", "기업과 기술 파트너를 연결합니다."],
     tags: ["#신규사업기획", "#공동제안서"],
     href: "/onboarding?type=ngo",
     cta: "NGO로 시작하기",
@@ -30,9 +30,7 @@ export default function ForWhom() {
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionEyebrow>FOR WHOM</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
-            처음이어도
-            <br />
-            이미 하고 있어도
+            국제개발협력의 모든 출발점에서 기업과 NGO를 AI로 연결합니다.
           </h2>
         </Reveal>
 
@@ -54,7 +52,11 @@ export default function ForWhom() {
                     <p className="text-xs font-semibold uppercase tracking-wide text-bridge">
                       {group.label}
                     </p>
-                    <h3 className="mt-1 text-lg font-bold text-harbor">{group.headline}</h3>
+                    <h3 className="mt-1 text-lg font-bold text-harbor">
+                      {group.headlineLines[0]}
+                      <br />
+                      {group.headlineLines[1]}
+                    </h3>
                     <div className="mt-2 flex flex-wrap gap-1.5">
                       {group.tags.map((tag) => (
                         <span key={tag} className="text-xs font-medium text-ink-soft">
