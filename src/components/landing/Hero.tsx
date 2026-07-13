@@ -1,5 +1,4 @@
 import { ShieldCheck } from "lucide-react";
-import { LinkButton } from "@/components/ui/Button";
 import { StartButton } from "@/components/landing/StartButton";
 import { Watermark } from "@/components/landing/Watermark";
 import { HeroPreviewCard } from "@/components/landing/HeroPreviewCard";
@@ -31,9 +30,6 @@ export default function Hero() {
             >
               프로젝트 시작하기
             </StartButton>
-            <LinkButton href="/onboarding?demo=true" variant="secondary" size="lg">
-              3분 데모 보기
-            </LinkButton>
           </div>
 
           <div className="mt-7 flex items-center gap-2 text-xs text-ink-soft/80">

@@ -1,3 +1,5 @@
+import type { BusinessObjectiveId } from "@/lib/types";
+
 export const WORKSPACE_TABS = [
   { slug: "overview", label: "Overview" },
   { slug: "country", label: "Country" },
@@ -6,7 +8,7 @@ export const WORKSPACE_TABS = [
   { slug: "risk", label: "Risk" },
   { slug: "impact", label: "Expected Impact" },
   { slug: "roadmap", label: "Roadmap" },
-  { slug: "proposal", label: "Proposal" },
+  { slug: "proposal", label: "Project Brief" },
   { slug: "references", label: "References" },
   { slug: "chat", label: "AI Chat" },
 ] as const;
@@ -124,3 +126,81 @@ export const GOAL_SECTION_COPY: Record<"company" | "ngo", { title: string; subti
 };
 
 export const ONBOARDING_STORAGE_KEY = "k-impact-bridge-onboarding";
+
+// ── 사업 목적 (AI 사업기획서 생성 입력) ────────────────────────────────────────
+// 사용자가 고른 목적에 따라 사업 기간·예산 구성·역할 분담·성과지표의 뼈대가 달라진다.
+// budgetScaleEok는 KOICA 시범/본사업의 통상 규모를 참고한 추정 전제값이며, 실제 예산은
+// 별도 산정이 필요하다 (기획서 화면에도 추정치임을 명시한다).
+export interface BusinessObjective {
+  id: BusinessObjectiveId;
+  label: string;
+  description: string;
+  durationMonths: number;
+  budgetScaleEok: number;
+}
+
+export const BUSINESS_OBJECTIVES: BusinessObjective[] = [
+  {
+    id: "tech_pilot",
+    label: "기술 실증 파일럿",
+    description: "보유 기술을 현지 환경에 시범 적용해 효과와 적용 가능성을 검증합니다.",
+    durationMonths: 12,
+    budgetScaleEok: 4.5,
+  },
+  {
+    id: "capacity_building",
+    label: "역량강화 · 기술이전",
+    description: "현지 인력과 기관이 스스로 운영할 수 있도록 교육과 기술이전을 중심에 둡니다.",
+    durationMonths: 18,
+    budgetScaleEok: 6,
+  },
+  {
+    id: "infra_improvement",
+    label: "인프라 구축 · 개선",
+    description: "설비와 시설을 직접 구축해 주민의 서비스 접근성을 개선합니다.",
+    durationMonths: 24,
+    budgetScaleEok: 12,
+  },
+  {
+    id: "market_entry",
+    label: "시장 진출 기반 마련",
+    description: "현지 파트너십과 레퍼런스를 확보해 후속 사업 진출의 발판을 만듭니다.",
+    durationMonths: 12,
+    budgetScaleEok: 3,
+  },
+  {
+    id: "oda_linkage",
+    label: "ODA 사업 연계 · 수주",
+    description: "KOICA 등 공적개발원조 공모 사업 참여를 목표로 사업을 설계합니다.",
+    durationMonths: 36,
+    budgetScaleEok: 20,
+  },
+];
+
+export const DEFAULT_BUSINESS_OBJECTIVE: BusinessObjectiveId = "tech_pilot";
+
+// 온보딩에서 고른 목표를 기획서의 사업 목적 기본 선택값으로 이어준다.
+const GOAL_TO_OBJECTIVE: Record<string, BusinessObjectiveId> = {
+  "find-oda-opportunity": "oda_linkage",
+  "receive-ai-strategy": "oda_linkage",
+  "find-technology-market": "market_entry",
+  "find-ngo": "capacity_building",
+  "find-technology": "capacity_building",
+  "develop-project": "capacity_building",
+  "receive-ai-project-design": "capacity_building",
+  "develop-project-idea": "tech_pilot",
+  "find-company": "tech_pilot",
+  "find-country": "tech_pilot",
+};
+
+export function suggestObjectiveFromGoals(goals: string[]): BusinessObjectiveId {
+  for (const goal of goals) {
+    const objective = GOAL_TO_OBJECTIVE[goal];
+    if (objective) return objective;
+  }
+  return DEFAULT_BUSINESS_OBJECTIVE;
+}
+
+export function findObjective(id: BusinessObjectiveId): BusinessObjective {
+  return BUSINESS_OBJECTIVES.find((item) => item.id === id) ?? BUSINESS_OBJECTIVES[0];
+}

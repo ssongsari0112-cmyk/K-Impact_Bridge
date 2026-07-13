@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { CheckCircle2, Compass, Globe2 } from "lucide-react";
 import { AppShell } from "@/components/layout/AppShell";
 import { Field } from "@/components/ui/Field";
 import { Textarea } from "@/components/ui/Textarea";
@@ -14,7 +15,7 @@ import type { OrgProfile, PartnerMatch } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 type InputMode = "upload" | "manual";
-type Phase = "form" | "loading" | "confirm" | "partner-entry";
+type Phase = "form" | "loading" | "confirm" | "partner-entry" | "complete";
 
 const PROFILE_BRIDGE_NODES = [
   { title: "회사소개서", subtitle: "업로드/직접입력" },
@@ -70,7 +71,7 @@ export default function ProfileBuilderPage() {
       setPhase("partner-entry");
       return;
     }
-    router.push("/discover");
+    setPhase("complete");
   }
 
   function submitPartnerAndCreateProject() {
@@ -300,6 +301,65 @@ export default function ProfileBuilderPage() {
               <Button type="submit">프로젝트 생성</Button>
             </div>
           </form>
+        </div>
+      )}
+
+      {phase === "complete" && (
+        <div className="mt-10 flex w-full flex-col items-center text-center">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full bg-bridge-soft text-bridge">
+            <CheckCircle2 size={36} strokeWidth={2} />
+          </span>
+          <h2 className="mt-6 text-2xl font-bold tracking-tight text-harbor">
+            회원가입이 완료되었습니다
+          </h2>
+          <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">
+            {profile?.name ? `${profile.name}님, ` : ""}프로필이 저장되었어요. 이제 원하는
+            기능을 자유롭게 사용해 보세요.
+          </p>
+
+          <div className="mt-10 grid w-full max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2">
+            <button
+              type="button"
+              onClick={() => router.push("/map")}
+              className="group flex flex-col items-start rounded-card border border-line bg-white p-6 text-left transition-all hover:border-bridge hover:shadow-[0_12px_32px_rgba(55,148,255,0.14)]"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-bridge-soft text-bridge">
+                <Globe2 size={22} />
+              </span>
+              <span className="mt-4 text-base font-semibold text-ink">국가 검색</span>
+              <span className="mt-1.5 text-sm text-ink-soft">
+                지도에서 한국의 기술이 필요한 국가와 사업 기회를 살펴보세요.
+              </span>
+              <span className="mt-4 text-sm font-semibold text-bridge transition-colors group-hover:text-harbor">
+                국가 검색하기 →
+              </span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => router.push("/discover")}
+              className="group flex flex-col items-start rounded-card border border-line bg-white p-6 text-left transition-all hover:border-bridge hover:shadow-[0_12px_32px_rgba(55,148,255,0.14)]"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-bridge-soft text-bridge">
+                <Compass size={22} />
+              </span>
+              <span className="mt-4 text-base font-semibold text-ink">기회 탐색</span>
+              <span className="mt-1.5 text-sm text-ink-soft">
+                내 프로필을 바탕으로 AI가 추천하는 진출 국가 TOP 3를 확인하세요.
+              </span>
+              <span className="mt-4 text-sm font-semibold text-bridge transition-colors group-hover:text-harbor">
+                기회 탐색하기 →
+              </span>
+            </button>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => router.push("/dashboard")}
+            className="mt-8 text-sm font-medium text-ink-soft transition-colors hover:text-bridge"
+          >
+            나중에 할게요 · 대시보드로 이동
+          </button>
         </div>
       )}
     </AppShell>

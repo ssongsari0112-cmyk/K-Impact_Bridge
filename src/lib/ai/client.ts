@@ -1,16 +1,16 @@
 import profileMock from "./mocks/profile.aquasense.json";
 import partnerMock from "./mocks/partner.json";
 import strategyMock from "./mocks/strategy.json";
-import proposalMock from "./mocks/proposal.json";
 import type { OrgProfile } from "@/lib/types";
 import { rankCountries } from "@/lib/scoring/countryScoring";
 import { analyzeProfileFile, analyzeProfileText } from "@/lib/ai/gemini";
 
+// proposal 에이전트는 mock을 쓰지 않는다 — 프로젝트 실데이터 + 외교부 공공데이터를
+// 종합해 lib/ai/brief.ts가 직접 기획서를 만든다.
 const MOCKS: Record<string, unknown> = {
   profile: profileMock,
   partner: partnerMock,
   strategy: strategyMock,
-  proposal: proposalMock,
 };
 
 // GOOGLE_API_KEY가 있으면 profile 분석에 실제 Gemini를 쓴다. (opportunity는 항상

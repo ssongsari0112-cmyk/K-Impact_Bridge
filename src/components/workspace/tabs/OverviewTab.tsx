@@ -19,7 +19,8 @@ const NEXT_STEP: Record<Project["status"], string> = {
   profile: "전략 리포트를 생성해 워크스페이스 전체를 채워보세요.",
   country: "국가 분석이 반영되었습니다. 전략 리포트를 생성해보세요.",
   partner: "파트너 매칭이 반영되었습니다. 전략 리포트를 생성해보세요.",
-  report_ready: "전략 리포트가 준비되었습니다. Proposal 탭에서 기획서 초안을 생성해보세요.",
+  report_ready:
+    "전략 리포트가 준비되었습니다. Project Brief 탭에서 AI 사업기획서 초안을 생성해보세요.",
 };
 
 export function OverviewTab({ project }: { project: Project }) {

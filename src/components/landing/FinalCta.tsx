@@ -1,4 +1,3 @@
-import { LinkButton } from "@/components/ui/Button";
 import { StartButton } from "@/components/landing/StartButton";
 import { Reveal } from "@/components/landing/Reveal";
 import { Watermark } from "@/components/landing/Watermark";
@@ -21,14 +20,6 @@ export default function FinalCta() {
           >
             프로젝트 시작하기
           </StartButton>
-          <LinkButton
-            href="/onboarding?demo=true"
-            variant="ghost"
-            size="lg"
-            className="border border-white/40 text-white hover:bg-white/10 hover:text-white"
-          >
-            3분 데모 보기
-          </LinkButton>
         </div>
       </Reveal>
     </section>

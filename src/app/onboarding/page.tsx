@@ -29,8 +29,10 @@ function OnboardingContent() {
   const setDraftMode = useProjectStore((state) => state.setDraftMode);
   const setDraftProfile = useProjectStore((state) => state.setDraftProfile);
   const saveOnboarding = useProjectStore((state) => state.saveOnboarding);
+  const storeOrgType = useProjectStore((state) => state.orgType);
+  const hasHydrated = useProjectStore((state) => state.hasHydrated);
 
-  const [orgType, setOrgType] = useState<OrgType | null>(null);
+  const [orgType, setOrgType] = useState<OrgType | null>(storeOrgType);
   const [goals, setGoals] = useState<string[]>([]);
 
   useEffect(() => {
@@ -40,6 +42,13 @@ function OnboardingContent() {
     setDraftProfile(profileMock);
     router.replace("/discover");
   }, [isDemo, router, setDraftMode, setDraftProfile]);
+
+  useEffect(() => {
+    // 새로고침 등으로 스토어가 뒤늦게 복원되는 경우, 회원가입 때 고른 유형을 반영
+    if (hasHydrated && storeOrgType) {
+      setOrgType((current) => current ?? storeOrgType);
+    }
+  }, [hasHydrated, storeOrgType]);
 
   function selectOrgType(type: OrgType) {
     if (type === orgType) return;

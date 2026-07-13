@@ -9,6 +9,7 @@ import { CitationChip } from "@/components/kib/CitationChip";
 import { DownloadMenu } from "@/components/workspace/DownloadMenu";
 import { BridgeRule } from "@/components/ui/BridgeRule";
 import { useProjectStore } from "@/lib/store/useProjectStore";
+import { isProjectBrief } from "@/lib/types";
 
 export default function ProjectReportPage() {
   const params = useParams<{ id: string }>();
@@ -37,7 +38,8 @@ export default function ProjectReportPage() {
   }
 
   const report = project.strategyReport;
-  const proposal = project.proposalDraft;
+  // 구버전 기획서(섹션 배열만 있던 형태)가 저장돼 있으면 렌더링하지 않는다.
+  const proposal = isProjectBrief(project.proposalDraft) ? project.proposalDraft : null;
 
   return (
     <AppShell>
@@ -133,14 +135,76 @@ export default function ProjectReportPage() {
 
         {proposal && (
           <div className="mt-10">
-            <h2 className="text-xl font-bold tracking-tight text-harbor">사업기획서 초안</h2>
+            <h2 className="text-xl font-bold tracking-tight text-harbor">
+              사업기획서 초안 · {proposal.projectTitle}
+            </h2>
+            <p className="mt-1 font-mono text-xs text-ink-soft">
+              사업 목적: {proposal.objectiveLabel} · {proposal.generatedBy}
+            </p>
+
             <div className="mt-4 flex flex-col gap-4">
+              <Card>
+                <h3 className="font-semibold text-harbor">사업 요약</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink">{proposal.summary}</p>
+              </Card>
+              <Card>
+                <h3 className="font-semibold text-harbor">배경 및 필요성</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink">{proposal.background}</p>
+              </Card>
+              <Card>
+                <h3 className="font-semibold text-harbor">수혜 대상 및 사업 목표</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink">{proposal.beneficiaries}</p>
+                <ol className="mt-2 flex flex-col gap-1">
+                  {proposal.goals.map((goal, index) => (
+                    <li key={goal} className="flex gap-2 text-sm leading-relaxed text-ink-soft">
+                      <span className="font-mono text-xs font-bold text-bridge">{index + 1}</span>
+                      {goal}
+                    </li>
+                  ))}
+                </ol>
+              </Card>
+
               {proposal.sections.map((section) => (
                 <Card key={section.title}>
                   <h3 className="font-semibold text-harbor">{section.title}</h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-ink">{section.content}</p>
                 </Card>
               ))}
+
+              <Card>
+                <h3 className="font-semibold text-harbor">추진 일정</h3>
+                <div className="mt-2 flex flex-col gap-2">
+                  {proposal.phases.map((phase) => (
+                    <div key={phase.period} className="flex gap-3 text-sm">
+                      <span className="w-24 shrink-0 font-mono text-xs font-semibold text-bridge">
+                        {phase.period}
+                      </span>
+                      <span className="text-ink">
+                        <b className="font-semibold">{phase.title}</b>
+                        <span className="text-ink-soft"> — {phase.activities.join(", ")}</span>
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </Card>
+
+              <Card>
+                <h3 className="font-semibold text-harbor">예산 계획</h3>
+                <div className="mt-2 flex flex-col divide-y divide-line">
+                  {proposal.budget.map((line) => (
+                    <div key={line.item} className="flex justify-between gap-3 py-2 text-sm">
+                      <span className="text-ink">{line.item}</span>
+                      <span className="font-mono text-xs font-bold text-bridge">{line.share}%</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-ink-soft">{proposal.budgetNote}</p>
+              </Card>
+
+              <Card>
+                <h3 className="font-semibold text-harbor">ODA 연계 전략</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-ink">{proposal.odaLinkage}</p>
+              </Card>
             </div>
           </div>
         )}

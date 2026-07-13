@@ -1,5 +1,13 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import type { OrgProfile } from "@/lib/types";
+import {
+  buildBriefPrompt,
+  buildSectionRewritePrompt,
+  type AiBriefPayload,
+  type AiBriefSection,
+} from "@/lib/ai/briefPrompt";
+
+export const GEMINI_MODEL_LABEL = "Gemini · gemini-flash-latest";
 
 // Google AI Studio(Gemini) 연동. GOOGLE_API_KEY 환경변수가 있을 때만 사용된다.
 // gemini-2.0-flash 등 특정 버전은 이 키의 무료 티어에서 quota가 0으로 막혀 있어서
@@ -114,4 +122,153 @@ export async function analyzeProfileFile(
   const text = response.text;
   if (!text) throw new Error("Gemini 응답이 비어있습니다.");
   return parseProfileResponse(text, fileName.replace(/\.[^.]+$/, ""));
+}
+
+// ── 사업기획서 (Project Brief) 생성 ────────────────────────────────────────────
+
+// AI가 직접 쓰는 부분만 스키마로 받는다. SDG·출처·외교부 국가정보 스냅샷은 우리가
+// 가진 실데이터로 채우기 때문에 AI에게 맡기지 않는다 (지어낼 여지를 없애기 위함).
+const BRIEF_RESPONSE_SCHEMA = {
+  type: Type.OBJECT,
+  properties: {
+    projectTitle: { type: Type.STRING },
+    summary: { type: Type.STRING },
+    background: { type: Type.STRING },
+    beneficiaries: { type: Type.STRING },
+    goals: { type: Type.ARRAY, items: { type: Type.STRING } },
+    sections: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: { title: { type: Type.STRING }, content: { type: Type.STRING } },
+        required: ["title", "content"],
+      },
+    },
+    roles: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: { actor: { type: Type.STRING }, role: { type: Type.STRING } },
+        required: ["actor", "role"],
+      },
+    },
+    phases: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: {
+          period: { type: Type.STRING },
+          title: { type: Type.STRING },
+          activities: { type: Type.ARRAY, items: { type: Type.STRING } },
+        },
+        required: ["period", "title", "activities"],
+      },
+    },
+    kpis: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: {
+          indicator: { type: Type.STRING },
+          baseline: { type: Type.STRING },
+          target: { type: Type.STRING },
+        },
+        required: ["indicator", "baseline", "target"],
+      },
+    },
+    budget: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: {
+          item: { type: Type.STRING },
+          share: { type: Type.NUMBER },
+          note: { type: Type.STRING },
+        },
+        required: ["item", "share", "note"],
+      },
+    },
+    budgetNote: { type: Type.STRING },
+    risks: {
+      type: Type.ARRAY,
+      items: {
+        type: Type.OBJECT,
+        properties: {
+          risk: { type: Type.STRING },
+          mitigation: { type: Type.STRING },
+          level: { type: Type.STRING, enum: ["high", "mid", "low"] },
+        },
+        required: ["risk", "mitigation", "level"],
+      },
+    },
+    odaLinkage: { type: Type.STRING },
+  },
+  required: [
+    "projectTitle",
+    "summary",
+    "background",
+    "beneficiaries",
+    "goals",
+    "sections",
+    "roles",
+    "phases",
+    "kpis",
+    "budget",
+    "budgetNote",
+    "risks",
+    "odaLinkage",
+  ],
+};
+
+export async function generateProjectBrief(contextText: string): Promise<AiBriefPayload> {
+  const ai = getClient();
+
+  const response = await ai.models.generateContent({
+    model: MODEL,
+    contents: [{ role: "user", parts: [{ text: buildBriefPrompt(contextText) }] }],
+    config: { responseMimeType: "application/json", responseSchema: BRIEF_RESPONSE_SCHEMA },
+  });
+
+  const text = response.text;
+  if (!text) throw new Error("Gemini 응답이 비어있습니다.");
+
+  try {
+    return JSON.parse(text) as AiBriefPayload;
+  } catch {
+    throw new Error("AI 사업기획서 응답을 JSON으로 파싱하지 못했습니다.");
+  }
+}
+
+// 기획서의 특정 서술형 섹션만 다시 쓴다.
+export async function rewriteBriefSection(
+  contextText: string,
+  section: AiBriefSection
+): Promise<AiBriefSection> {
+  const ai = getClient();
+
+  const response = await ai.models.generateContent({
+    model: MODEL,
+    contents: [
+      { role: "user", parts: [{ text: buildSectionRewritePrompt(contextText, section) }] },
+    ],
+    config: {
+      responseMimeType: "application/json",
+      responseSchema: {
+        type: Type.OBJECT,
+        properties: { title: { type: Type.STRING }, content: { type: Type.STRING } },
+        required: ["title", "content"],
+      },
+    },
+  });
+
+  const text = response.text;
+  if (!text) throw new Error("Gemini 응답이 비어있습니다.");
+
+  try {
+    const parsed = JSON.parse(text) as Partial<AiBriefSection>;
+    if (!parsed.content) throw new Error("empty");
+    return { title: parsed.title || section.title, content: parsed.content };
+  } catch {
+    throw new Error("AI 섹션 응답을 JSON으로 파싱하지 못했습니다.");
+  }
 }

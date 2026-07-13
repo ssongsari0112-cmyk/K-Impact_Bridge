@@ -72,9 +72,97 @@ export interface StrategyReport {
   generatedAt: string;
 }
 
+// ── AI 사업기획서 (Project Brief) ──────────────────────────────────────────────
+
+// 기획서 생성 직전에 사용자가 고르는 사업 목적. 목적에 따라 사업 기간·예산 구성·
+// 역할 분담·KPI가 달라진다. (선택지 정의는 constants.ts의 BUSINESS_OBJECTIVES)
+export type BusinessObjectiveId =
+  | "tech_pilot"
+  | "capacity_building"
+  | "infra_improvement"
+  | "market_entry"
+  | "oda_linkage";
+
+export interface BriefRole {
+  actor: string;
+  role: string;
+}
+
+export interface BriefPhase {
+  period: string; // "1~3개월"
+  title: string;
+  activities: string[];
+}
+
+export interface BriefKpi {
+  indicator: string;
+  baseline: string;
+  target: string;
+}
+
+export interface BriefBudgetLine {
+  item: string;
+  share: number; // 총사업비 대비 비중(%)
+  note: string;
+}
+
+export interface BriefRisk {
+  risk: string;
+  mitigation: string;
+  level: "high" | "mid" | "low";
+}
+
+// 외교부 공공데이터포털에서 받아온 국가정보 스냅샷. 기획서의 서술 근거가 무엇이었는지
+// 화면에 그대로 보여주기 위해 기획서와 함께 저장한다.
+export interface CountryFactSheet {
+  countryCode: string;
+  countryName: string;
+  gdpPerCapita: string | null;
+  gdpGrowthRate: string | null;
+  majorIndustry: string | null;
+  governmentForm: string | null;
+  diplomaticRelations: string | null;
+  missionStatus: string | null;
+  odaStatus: string | null; // 대한민국 누적 ODA 지원 실적
+  sourceUrl: string;
+  isLive: boolean; // 외교부 API 응답을 실제로 받았는지 (false면 응답 실패)
+}
+
 export interface ProposalDraft {
-  sections: { title: string; content: string }[]; // 15개 섹션
+  projectTitle: string;
+  objectiveId: BusinessObjectiveId;
+  objectiveLabel: string;
+  summary: string; // 사업 요약 (Executive Summary)
+  background: string; // 배경 및 필요성
+  beneficiaries: string; // 수혜 대상
+  goals: string[]; // 사업 목표
+  sections: { title: string; content: string }[]; // 서술형 본문 섹션
+  roles: BriefRole[]; // 수행 주체별 역할 분담
+  phases: BriefPhase[]; // 추진 일정
+  kpis: BriefKpi[]; // 성과지표
+  budget: BriefBudgetLine[];
+  budgetNote: string; // 총사업비 규모 및 산정 전제
+  risks: BriefRisk[];
+  sdgs: string[];
+  odaLinkage: string; // ODA 연계 전략
+  countryFacts: CountryFactSheet;
+  citations: Citation[];
+  isDemo: boolean; // true = AI 미연결 상태에서 템플릿으로 생성한 초안
+  generatedBy: string; // "Gemini · gemini-flash-latest" | "규칙 기반 템플릿"
   generatedAt: string;
+}
+
+// 구버전(섹션 배열만 있던) 기획서가 localStorage에 남아 있을 수 있어 형태를 검증한다.
+export function isProjectBrief(value: unknown): value is ProposalDraft {
+  if (typeof value !== "object" || value === null) return false;
+  const draft = value as Partial<ProposalDraft>;
+  return (
+    Array.isArray(draft.sections) &&
+    Array.isArray(draft.phases) &&
+    typeof draft.objectiveId === "string" &&
+    typeof draft.countryFacts === "object" &&
+    draft.countryFacts !== null
+  );
 }
 
 export type ProjectStatus = "profile" | "country" | "partner" | "report_ready";
@@ -84,6 +172,7 @@ export interface Project {
   title: string;
   mode: Mode;
   status: ProjectStatus;
+  goals: string[]; // 온보딩에서 선택한 목표 id — 기획서의 사업 목적 기본값으로 쓴다
   profile: OrgProfile | null;
   selectedCountry: CountryOpportunity | null;
   selectedPartner: PartnerMatch | null;

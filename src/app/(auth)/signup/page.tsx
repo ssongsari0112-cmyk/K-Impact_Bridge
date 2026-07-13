@@ -21,7 +21,7 @@ const ORG_TYPES: { value: OrgType; label: string; description: string; icon: typ
 
 export default function SignupPage() {
   const router = useRouter();
-  const login = useProjectStore((state) => state.login);
+  const register = useProjectStore((state) => state.register);
   const [orgType, setOrgType] = useState<OrgType>("company");
   const [error, setError] = useState<string | null>(null);
 
@@ -45,8 +45,13 @@ export default function SignupPage() {
       return;
     }
 
+    const result = register({ email, password, orgType, organizationName });
+    if (!result.ok) {
+      setError(result.error ?? "회원가입에 실패했습니다.");
+      return;
+    }
+
     setError(null);
-    login(email, orgType);
     router.push("/onboarding");
   }
 

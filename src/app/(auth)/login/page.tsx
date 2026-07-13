@@ -31,8 +31,13 @@ export default function LoginPage() {
       return;
     }
 
+    const result = login(email, password);
+    if (!result.ok) {
+      setError(result.error ?? "로그인에 실패했습니다.");
+      return;
+    }
+
     setError(null);
-    login(email);
     router.push("/dashboard");
   }
 

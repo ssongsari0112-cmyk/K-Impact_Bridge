@@ -10,12 +10,18 @@ import { cn } from "@/lib/utils";
 import opportunityMock from "@/lib/ai/mocks/opportunity.json";
 import partnerMock from "@/lib/ai/mocks/partner.json";
 import strategyMock from "@/lib/ai/mocks/strategy.json";
-import proposalMock from "@/lib/ai/mocks/proposal.json";
 
 const country = opportunityMock[0];
 const partner = partnerMock[0];
 const { valueChain, risks } = strategyMock;
-const proposalSection = proposalMock.sections[0];
+
+// 랜딩 미리보기용 예시 문안. 실제 기획서는 프로젝트 데이터 + 외교부 공공데이터를 종합해
+// lib/ai/brief.ts가 생성한다.
+const proposalSection = {
+  title: "1. 사업 개요",
+  content:
+    "AquaSense AI와 Water Impact NGO가 협력하여 캄보디아 농촌 지역에 AI 기반 수질 모니터링 시스템을 구축하는 사업입니다. 1차 파일럿은 12개월간 3개 마을을 대상으로 진행합니다.",
+};
 
 const RISK_STYLE: Record<string, string> = {
   high: "bg-red-soft text-red",
