@@ -34,7 +34,7 @@ export default function Faq() {
     <section className="bg-mist px-6 py-24">
       <div className="mx-auto max-w-3xl">
         <Reveal className="text-center">
-          <SectionEyebrow n={12}>FAQ</SectionEyebrow>
+          <SectionEyebrow>FAQ</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
             자주 묻는 질문
           </h2>

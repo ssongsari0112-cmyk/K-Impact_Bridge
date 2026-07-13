@@ -50,12 +50,7 @@ function CountryPreview() {
       </ul>
       <div className="mt-4 flex flex-wrap gap-2 border-t border-dashed border-line pt-3.5">
         {country.citations.map((citation) => (
-          <CitationChip
-            key={citation.id}
-            label={citation.sourceName}
-            href={citation.url}
-            demo={citation.isDemo}
-          />
+          <CitationChip key={citation.id} label={citation.sourceName} demo={citation.isDemo} />
         ))}
       </div>
     </Card>
@@ -172,7 +167,7 @@ export default function FeatureNarratives() {
     <section className="bg-mist px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={8}>FEATURES</SectionEyebrow>
+          <SectionEyebrow>FEATURES</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
             화면으로 먼저 확인하세요
           </h2>

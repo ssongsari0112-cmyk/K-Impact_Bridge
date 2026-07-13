@@ -1,7 +1,6 @@
 import { ShieldCheck } from "lucide-react";
 import { LinkButton } from "@/components/ui/Button";
 import { StartButton } from "@/components/landing/StartButton";
-import { SectionEyebrow } from "@/components/landing/SectionEyebrow";
 import { Watermark } from "@/components/landing/Watermark";
 import { HeroPreviewCard } from "@/components/landing/HeroPreviewCard";
 
@@ -10,9 +9,7 @@ export default function Hero() {
     <section className="bg-white">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 lg:grid-cols-[1.05fr_1fr] lg:items-center lg:py-20">
         <div>
-          <SectionEyebrow n={1}>외교 공공데이터 × AI STRATEGY COPILOT</SectionEyebrow>
-
-          <h1 className="mt-5 leading-[1.2] tracking-tight">
+          <h1 className="leading-[1.2] tracking-tight">
             <span className="block text-2xl font-light text-ink-soft sm:text-3xl">
               한국의 기술과 세계의 문제를 잇는,
             </span>
@@ -32,7 +29,7 @@ export default function Hero() {
               size="lg"
               className="shadow-[0_8px_24px_rgba(232,163,61,0.35)] hover:scale-[1.03]"
             >
-              무료로 프로젝트 시작하기
+              프로젝트 시작하기
             </StartButton>
             <LinkButton href="/onboarding?demo=true" variant="secondary" size="lg">
               3분 데모 보기

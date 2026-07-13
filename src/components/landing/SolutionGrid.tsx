@@ -42,7 +42,7 @@ const FEATURES: Feature[] = [
     icon: FileBarChart2,
     title: "Strategy Report",
     description: "Value Chain·리스크·로드맵 자동 설계",
-    preview: <CitationChip label="KOICA Open Data" href="https://data.koica.go.kr" />,
+    preview: <CitationChip label="KOICA Open Data" />,
   },
   {
     icon: FileOutput,
@@ -54,7 +54,7 @@ const FEATURES: Feature[] = [
     icon: Link2,
     title: "Citation Layer",
     description: "모든 사실에 공식 출처 링크",
-    preview: <CitationChip label="외교부 LOD" href="https://www.mofa.go.kr" />,
+    preview: <CitationChip label="외교부 LOD" />,
   },
 ];
 
@@ -63,7 +63,7 @@ export default function SolutionGrid() {
     <section className="bg-white px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={5}>SOLUTION</SectionEyebrow>
+          <SectionEyebrow>SOLUTION</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
             국제개발협력 진출의 전 과정을 하나로
           </h2>

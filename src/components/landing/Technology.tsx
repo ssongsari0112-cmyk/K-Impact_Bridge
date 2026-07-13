@@ -30,7 +30,7 @@ export default function Technology() {
     <section className="bg-mist px-6 py-24">
       <div className="mx-auto max-w-6xl">
         <Reveal className="mx-auto max-w-2xl text-center">
-          <SectionEyebrow n={10}>TECHNOLOGY</SectionEyebrow>
+          <SectionEyebrow>TECHNOLOGY</SectionEyebrow>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
             국제개발협력을 가장 깊이 이해하는 AI 구조
           </h2>

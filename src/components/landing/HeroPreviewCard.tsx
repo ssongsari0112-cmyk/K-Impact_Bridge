@@ -1,13 +1,8 @@
 import { countryFlag } from "@/lib/types";
-import { CitationChip } from "@/components/kib/CitationChip";
 import { cn } from "@/lib/utils";
 import opportunityMock from "@/lib/ai/mocks/opportunity.json";
 
 const TOP_THREE = opportunityMock.slice(0, 3);
-const CHIPS = [
-  { label: "KOICA Open Data", href: "https://data.koica.go.kr" },
-  { label: "외교부 LOD", href: "https://www.mofa.go.kr" },
-];
 
 export function HeroPreviewCard() {
   return (
@@ -51,12 +46,6 @@ export function HeroPreviewCard() {
                 {country.opportunityScore}
               </span>
             </div>
-          ))}
-        </div>
-
-        <div className="mt-4 flex flex-wrap gap-2 border-t border-dashed border-line pt-4">
-          {CHIPS.map((chip) => (
-            <CitationChip key={chip.label} label={chip.label} href={chip.href} />
           ))}
         </div>
       </div>

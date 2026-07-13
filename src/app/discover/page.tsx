@@ -94,10 +94,11 @@ function DiscoverContent() {
           <div className="mt-8">
             {isDemoResult && <DemoBanner className="mb-6" />}
             <div className="grid gap-6 lg:grid-cols-2 xl:gap-7">
-              {opportunities.slice(0, visibleCount).map((opportunity) => (
+              {opportunities.slice(0, visibleCount).map((opportunity, index) => (
                 <CountryCard
                   key={opportunity.country}
                   opportunity={opportunity}
+                  rank={index + 1}
                   onSelect={() => selectCountry(opportunity)}
                 />
               ))}

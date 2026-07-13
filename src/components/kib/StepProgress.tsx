@@ -5,9 +5,18 @@ export interface StepItem {
   state: "done" | "now" | "pending";
 }
 
-export function StepProgress({ items, className }: { items: StepItem[]; className?: string }) {
+export function StepProgress({
+  items,
+  className,
+  ariaLabel = "진행 단계",
+}: {
+  items: StepItem[];
+  className?: string;
+  ariaLabel?: string;
+}) {
   return (
     <div
+      aria-label={ariaLabel}
       className={cn(
         "flex max-w-xl flex-wrap items-center gap-2.5 sm:flex-nowrap sm:gap-0",
         className
@@ -15,7 +24,11 @@ export function StepProgress({ items, className }: { items: StepItem[]; classNam
     >
       {items.map((item, index) => (
         <div key={item.label} className="flex items-center">
-          <div className="flex shrink-0 items-center gap-2">
+          <div
+            className="flex shrink-0 items-center gap-2"
+            aria-label={`${index + 1}단계 ${item.label}`}
+            aria-current={item.state === "now" ? "step" : undefined}
+          >
             <span
               className={cn(
                 "flex h-7 w-7 items-center justify-center rounded-full border font-display text-[13px] font-semibold",

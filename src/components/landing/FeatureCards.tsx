@@ -52,7 +52,9 @@ export default function FeatureCards() {
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-sm font-medium text-bridge">주요 기능</p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
-            업로드부터 사업기획서까지, 하나의 흐름으로
+            업로드부터 사업기획서까지
+            <br />
+            하나의 흐름으로
           </h2>
         </div>
 

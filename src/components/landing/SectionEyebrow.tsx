@@ -1,11 +1,9 @@
 import { cn } from "@/lib/utils";
 
 export function SectionEyebrow({
-  n,
   children,
   className,
 }: {
-  n?: number;
   children: string;
   className?: string;
 }) {
@@ -16,9 +14,6 @@ export function SectionEyebrow({
         className
       )}
     >
-      {typeof n === "number" && (
-        <span className="text-bridge">{String(n).padStart(2, "0")}. </span>
-      )}
       {children}
     </p>
   );
