@@ -24,6 +24,7 @@ function DiscoverPartnerContent() {
   const searchParams = useSearchParams();
   const projectId = searchParams.get("projectId");
 
+  const hasHydrated = useProjectStore((state) => state.hasHydrated);
   const draftCountry = useProjectStore((state) => state.draftCountry);
   const createProject = useProjectStore((state) => state.createProject);
   const updateProject = useProjectStore((state) => state.updateProject);
@@ -44,6 +45,7 @@ function DiscoverPartnerContent() {
   });
 
   useEffect(() => {
+    if (!hasHydrated) return;
     if (!country) {
       router.replace("/discover");
       return;
@@ -65,7 +67,7 @@ function DiscoverPartnerContent() {
       cancelled = true;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [country]);
+  }, [country, hasHydrated]);
 
   function finishWithPartner(partner: PartnerMatch | null) {
     if (projectId) {

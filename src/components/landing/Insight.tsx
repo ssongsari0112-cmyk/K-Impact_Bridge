@@ -17,13 +17,18 @@ export default function Insight() {
       <div className="mx-auto max-w-5xl">
         <Reveal className="mx-auto max-w-2xl text-center">
           <SectionEyebrow>INSIGHT</SectionEyebrow>
-          <h2 className="mt-3 text-3xl font-bold tracking-tight text-harbor sm:text-4xl">
-            기회는 <span className="text-bridge">연결</span>에서 시작됩니다.
+          <h2 className="mt-3 tracking-tight">
+            <span className="block text-xl font-light text-ink-soft sm:text-2xl">
+              공공데이터는 이미 충분히 쌓여 있습니다.
+            </span>
+            <span className="mt-1 block text-3xl font-extrabold text-harbor sm:text-4xl">
+              부족했던 건 <span className="text-bridge">연결하는 과정</span>이었습니다.
+            </span>
           </h2>
           <p className="mt-4 text-ink-soft">
-            흩어진 개발협력 데이터를 AI가 분석하여
-            <br />
-            가장 적합한 국가와 파트너를 추천합니다.
+            외교부, KOICA, KF는 방대한 개발협력 데이터를 공개하고 있지만, 대부분 조회와
+            다운로드에서 끝납니다. K-Impact Bridge는 이 데이터를 국가 추천, 파트너 매칭,
+            전략 리포트로 이어지는 하나의 흐름으로 연결합니다.
           </p>
         </Reveal>
 

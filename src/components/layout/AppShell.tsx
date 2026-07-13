@@ -4,9 +4,16 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Waypoints } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { useProjectStore } from "@/lib/store/useProjectStore";
 
-export function AppShell({ children }: { children: ReactNode }) {
+export function AppShell({
+  children,
+  wide = false,
+}: {
+  children: ReactNode;
+  wide?: boolean;
+}) {
   const router = useRouter();
   const isAuthenticated = useProjectStore((state) => state.isAuthenticated);
   const userEmail = useProjectStore((state) => state.userEmail);
@@ -58,7 +65,14 @@ export function AppShell({ children }: { children: ReactNode }) {
           </nav>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">{children}</main>
+      <main
+        className={cn(
+          "mx-auto w-full flex-1 px-6 py-10 lg:px-10",
+          wide ? "max-w-[1680px]" : "max-w-6xl"
+        )}
+      >
+        {children}
+      </main>
     </div>
   );
 }

@@ -39,7 +39,18 @@ export function CountryCard({
   const tierColor = TIER_TEXT_COLOR[scoreTier(opportunity.opportunityScore)];
 
   return (
-    <Card className="hover:border-bridge/30">
+    <Card
+      role="button"
+      tabIndex={0}
+      onClick={onSelect}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect();
+        }
+      }}
+      className="cursor-pointer transition-transform duration-200 hover:-translate-y-0.5 hover:scale-[1.015] hover:border-bridge/30 hover:shadow-kib-3 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-bridge/35"
+    >
       <div className="flex items-start justify-between gap-4">
         <div>
           {rank && (
@@ -138,7 +149,10 @@ export function CountryCard({
 
       <button
         type="button"
-        onClick={() => setExpanded((value) => !value)}
+        onClick={(event) => {
+          event.stopPropagation();
+          setExpanded((value) => !value);
+        }}
         className="mt-4 flex items-center gap-1 text-xs font-semibold text-bridge"
       >
         {expanded ? "평가 결과 접기" : "국가 상세보기 (평가 결과·출처)"}
@@ -173,7 +187,10 @@ export function CountryCard({
         </div>
       )}
 
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-dashed border-line pt-3.5">
+      <div
+        className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-dashed border-line pt-3.5"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="flex flex-wrap gap-2">
           {opportunity.citations.map((citation) => (
             <CitationChip

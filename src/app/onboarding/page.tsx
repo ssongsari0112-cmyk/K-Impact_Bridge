@@ -25,7 +25,7 @@ function OnboardingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isDemo = searchParams.get("demo") === "true";
-
+  const hasHydrated = useProjectStore((state) => state.hasHydrated);
   const setDraftMode = useProjectStore((state) => state.setDraftMode);
   const setDraftProfile = useProjectStore((state) => state.setDraftProfile);
   const saveOnboarding = useProjectStore((state) => state.saveOnboarding);
@@ -36,12 +36,12 @@ function OnboardingContent() {
   const [goals, setGoals] = useState<string[]>([]);
 
   useEffect(() => {
-    if (!isDemo) return;
+    if (!isDemo || !hasHydrated) return;
     // 기존 원클릭 데모 플로우는 그대로 유지
     setDraftMode("new_opportunity");
     setDraftProfile(profileMock);
     router.replace("/discover");
-  }, [isDemo, router, setDraftMode, setDraftProfile]);
+  }, [isDemo, hasHydrated, router, setDraftMode, setDraftProfile]);
 
   useEffect(() => {
     // 새로고침 등으로 스토어가 뒤늦게 복원되는 경우, 회원가입 때 고른 유형을 반영
