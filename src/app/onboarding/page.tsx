@@ -30,7 +30,6 @@ function OnboardingContent() {
   const setDraftProfile = useProjectStore((state) => state.setDraftProfile);
   const saveOnboarding = useProjectStore((state) => state.saveOnboarding);
   const storeOrgType = useProjectStore((state) => state.orgType);
-  const hasHydrated = useProjectStore((state) => state.hasHydrated);
 
   const [orgType, setOrgType] = useState<OrgType | null>(storeOrgType);
   const [goals, setGoals] = useState<string[]>([]);
